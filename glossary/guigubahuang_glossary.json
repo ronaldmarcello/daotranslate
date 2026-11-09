@@ -1,0 +1,208 @@
+{
+  "game_id": "guigubahuang",
+  "game_title": "Tale of Immortal (鬼谷八荒)",
+  "engine": "Unity IL2CPP",
+  "version": "1.0.0",
+  "default_style": "pt-BR-hybrid-xianxia",
+  "description": "Glossário canônico de cultivo, reinos, atributos, seitas e conceitos de Tale of Immortal para manter consistência absoluta nas traduções via LLM.",
+  "realms": [
+    {
+      "zh": "炼气",
+      "zh_full": "炼气期",
+      "pinyin": "Liàn Qì",
+      "en": "Qi Refining",
+      "pt_br_hybrid": "Refinamento de Qi (Qi Refining)",
+      "pt_br_short": "Refinamento de Qi",
+      "wrong_literal": ["Refinamento de Gás", "Refinar Ar", "Período de Refino de Vapor"]
+    },
+    {
+      "zh": "筑基",
+      "zh_full": "筑基期",
+      "pinyin": "Zhù Jī",
+      "en": "Foundation Establishment",
+      "pt_br_hybrid": "Estabelecimento de Fundação (Foundation)",
+      "pt_br_short": "Estabelecimento de Fundação",
+      "wrong_literal": ["Construção de Base", "Terraplenagem", "Fundações de Prédio"]
+    },
+    {
+      "zh": "结晶",
+      "zh_full": "结晶期",
+      "pinyin": "Jié Jīng",
+      "en": "Qi Condensation",
+      "pt_br_hybrid": "Cristalização de Qi (Qi Condensation)",
+      "pt_br_short": "Cristalização",
+      "wrong_literal": ["Congelamento", "Cristal", "Período de Gelo"]
+    },
+    {
+      "zh": "金丹",
+      "zh_full": "金丹期",
+      "pinyin": "Jīn Dān",
+      "en": "Golden Core",
+      "pt_br_hybrid": "Núcleo Dourado (Golden Core)",
+      "pt_br_short": "Núcleo Dourado",
+      "wrong_literal": ["Pílula de Ouro", "Comprimido Dourado", "Elixir de Metal"]
+    },
+    {
+      "zh": "具灵",
+      "zh_full": "具灵期",
+      "pinyin": "Jù Líng",
+      "en": "Spirit Sight",
+      "pt_br_hybrid": "Manifestação Espiritual (Spirit Sight)",
+      "pt_br_short": "Manifestação Espiritual",
+      "wrong_literal": ["Ferramenta Espiritual", "Utensílio de Fantasma"]
+    },
+    {
+      "zh": "元婴",
+      "zh_full": "元婴期",
+      "pinyin": "Yuán Yīng",
+      "en": "Nascent Soul",
+      "pt_br_hybrid": "Alma Nascente (Nascent Soul)",
+      "pt_br_short": "Alma Nascente",
+      "wrong_literal": ["Bebê Original", "Recém-Nascido Primordial", "Feto de Yuan"]
+    },
+    {
+      "zh": "化神",
+      "zh_full": "化神期",
+      "pinyin": "Huà Shén",
+      "en": "Deity Transformation",
+      "pt_br_hybrid": "Transformação Divina (Deity Transformation)",
+      "pt_br_short": "Transformação Divina",
+      "wrong_literal": ["Química de Deus", "Derreter Espírito"]
+    },
+    {
+      "zh": "悟道",
+      "zh_full": "悟道期",
+      "pinyin": "Wù Dào",
+      "en": "Dao Enlightenment",
+      "pt_br_hybrid": "Iluminação do Dao (Dao Enlightenment)",
+      "pt_br_short": "Iluminação do Dao",
+      "wrong_literal": ["Entender a Estrada", "Perceber a Rua"]
+    },
+    {
+      "zh": "羽化",
+      "zh_full": "羽化期",
+      "pinyin": "Yǔ Huà",
+      "en": "Feathering / Ascension Prep",
+      "pt_br_hybrid": "Plumagem Celestial (Feathering)",
+      "pt_br_short": "Plumagem Celestial",
+      "wrong_literal": ["Virar Pena", "Mudança de Asa"]
+    },
+    {
+      "zh": "登仙",
+      "zh_full": "登仙期",
+      "pinyin": "Dēng Xiān",
+      "en": "Transcendent / Immortal Ascension",
+      "pt_br_hybrid": "Ascensão Imortal (Transcendent)",
+      "pt_br_short": "Ascensão Imortal",
+      "wrong_literal": ["Subir na Fada", "Escalar o Santo"]
+    }
+  ],
+  "core_concepts": [
+    {
+      "zh": "丹田",
+      "pinyin": "Dān Tián",
+      "canonical": "Dantian",
+      "context": "Centro energético onde o cultivador armazena e refina o Qi.",
+      "wrong_literal": ["Campo de Cinábrio", "Plantação Vermelha"]
+    },
+    {
+      "zh": "道心",
+      "pinyin": "Dào Xīn",
+      "canonical": "Coração do Dao (Dao Heart)",
+      "context": "Firmeza mental e espiritual do cultivador no caminho do cultivo.",
+      "wrong_literal": ["Coração da Estrada", "Mente da Rua"]
+    },
+    {
+      "zh": "心魔",
+      "pinyin": "Xīn Mó",
+      "canonical": "Demônio Interior (Heart Demon)",
+      "context": "Obsessão ou trauma que sabota o avanço de reino na tribulação.",
+      "wrong_literal": ["Diabo do Coração", "Mágica Cardíaca"]
+    },
+    {
+      "zh": "天劫",
+      "pinyin": "Tiān Jié",
+      "canonical": "Tribulação Celestial (Heavenly Tribulation)",
+      "context": "Julgamento por raios divinos ao avançar para um grande reino.",
+      "wrong_literal": ["Roubo do Céu", "Assalto do Dia"]
+    },
+    {
+      "zh": "灵气",
+      "pinyin": "Líng Qì",
+      "canonical": "Qi Espiritual",
+      "context": "Energia espiritual presente no mundo ou em pedras espirituais.",
+      "wrong_literal": ["Ar Inteligente", "Vapor Esperto"]
+    },
+    {
+      "zh": "灵石",
+      "pinyin": "Líng Shí",
+      "canonical": "Pedra Espiritual (Spirit Stone)",
+      "context": "Moeda principal usada por cultivadores.",
+      "wrong_literal": ["Pedra Inteligente", "Rocha Fantasma"]
+    },
+    {
+      "zh": "灵根",
+      "pinyin": "Líng Gēn",
+      "canonical": "Raiz Espiritual (Spiritual Root)",
+      "context": "Aptidão elemental nata do cultivador (Fogo, Água, Relâmpago, Vento, Terra, Madeira).",
+      "wrong_literal": ["Raiz Inteligente", "Nabo de Espírito"]
+    },
+    {
+      "zh": "功法",
+      "pinyin": "Gōng Fǎ",
+      "canonical": "Técnica de Cultivo (Cultivation Technique)",
+      "context": "Manual ou método interno que rege a absorção de Qi e atributos.",
+      "wrong_literal": ["Método de Trabalho", "Lei de Mérito"]
+    },
+    {
+      "zh": "武技",
+      "pinyin": "Wǔ Jì",
+      "canonical": "Arte Marcial / Técnica Básica",
+      "context": "Ataque básico contínuo (botão esquerdo do mouse).",
+      "wrong_literal": ["Habilidade Militar", "Truque de Guerra"]
+    },
+    {
+      "zh": "绝技",
+      "pinyin": "Jué Jì",
+      "canonical": "Técnica Especial (Special Skill)",
+      "context": "Habilidade de recarga que consome Qi (botão direito do mouse).",
+      "wrong_literal": ["Truque Extremo", "Arte Cortada"]
+    },
+    {
+      "zh": "身法",
+      "pinyin": "Shēn Fǎ",
+      "canonical": "Técnica de Movimento (Movement Skill)",
+      "context": "Habilidade de esquiva, voo ou deslocamento em combate (barra de espaço).",
+      "wrong_literal": ["Lei do Corpo", "Método Físico"]
+    },
+    {
+      "zh": "神通",
+      "pinyin": "Shén Tōng",
+      "canonical": "Arte Divina / Suprema (Ultimate Skill)",
+      "context": "Habilidade suprema de alto impacto (tecla R).",
+      "wrong_literal": ["Deus Passando", "Comunicação Divina"]
+    },
+    {
+      "zh": "逆天改命",
+      "pinyin": "Nì Tiān Gǎi Mìng",
+      "canonical": "Reescrever o Destino (Rewrite Destiny)",
+      "context": "Talento poderoso escolhido ao romper de um reino para outro, desafiando os Céus.",
+      "wrong_literal": ["Mudar a Vida Contra o Céu", "Inverter o Clima"]
+    },
+    {
+      "zh": "双修",
+      "pinyin": "Shuāng Xiū",
+      "canonical": "Cultivo Dual (Dual Cultivation)",
+      "context": "Prática conjunta entre dois cultivadores para ganho mútuo de experiência e Qi.",
+      "wrong_literal": ["Reparo Duplo", "Conserto em Par"]
+    },
+    {
+      "zh": "宗门",
+      "pinyin": "Zōng Mén",
+      "canonical": "Seita",
+      "context": "Organização/clã de cultivadores.",
+      "wrong_literal": ["Porta Ancestral", "Portão de Religião"]
+    }
+  ]
+}
+

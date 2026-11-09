@@ -1,0 +1,87 @@
+﻿---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Dashboard — DaoTranslate">
+  <section class="py-16">
+    <div class="max-w-6xl mx-auto px-6 lg:px-8">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-8 mb-8 border-b border-white/[0.06]">
+        <div>
+          <p class="text-xs font-mono uppercase tracking-widest text-zinc-500 mb-1">
+            Área do Cliente (Preview)
+          </p>
+          <h1 class="text-2xl font-semibold tracking-tight text-white">
+            Licença e Launcher Desktop
+          </h1>
+        </div>
+        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-emerald-500/20 bg-emerald-500/10 text-emerald-400 text-xs font-medium self-start sm:self-auto">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+          Assinatura Ativa
+        </span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div class="md:col-span-2 rounded-2xl border border-white/[0.08] bg-zinc-900/40 p-6">
+          <h2 class="text-xs font-mono uppercase tracking-wider text-zinc-500 mb-2">
+            License Key
+          </h2>
+          <p class="text-xs text-zinc-400 mb-4">
+            Utilize esta chave no aplicativo desktop para ativar a tradução e o pacote de fonte SDF.
+          </p>
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
+            <code class="flex-1 px-3.5 py-2.5 rounded-lg bg-zinc-950 border border-white/[0.08] font-mono text-zinc-200 text-xs sm:text-sm select-all">
+              DAO-BR-9F84-GUIGU-2026-XIANXIA
+            </code>
+            <button
+              type="button"
+              onclick="navigator.clipboard.writeText('DAO-BR-9F84-GUIGU-2026-XIANXIA'); this.textContent = 'Copiado';"
+              class="px-4 py-2.5 rounded-lg bg-white hover:bg-zinc-200 text-zinc-950 font-medium text-xs transition-colors"
+            >
+              Copiar
+            </button>
+          </div>
+          <div class="mt-4 flex flex-wrap items-center gap-6 text-xs text-zinc-500">
+            <span>Dispositivos vinculados: 1 / 1</span>
+            <span>Limite de Cache Miss: 40 req/min</span>
+          </div>
+        </div>
+
+        <div class="rounded-2xl border border-white/[0.08] bg-zinc-900/40 p-6 flex flex-col justify-between">
+          <div>
+            <span class="text-xs font-mono uppercase tracking-wider text-zinc-500">Windows x64</span>
+            <h3 class="text-base font-medium text-white mt-1 mb-2">DaoTranslate Launcher</h3>
+            <p class="text-xs text-zinc-400 leading-relaxed mb-6">
+              Cliente leve (~5MB) com detecção automática da Steam e fonte SDF integrada.
+            </p>
+          </div>
+          <a
+            href="/#waitlist"
+            class="w-full py-2.5 rounded-lg bg-zinc-100 hover:bg-zinc-200 text-zinc-950 font-medium text-xs text-center transition-colors"
+          >
+            Baixar Instalador (.exe)
+          </a>
+        </div>
+      </div>
+
+      <div class="rounded-2xl border border-white/[0.08] bg-zinc-900/30 grid grid-cols-1 sm:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-white/[0.06]">
+        <div class="p-5">
+          <span class="text-xs text-zinc-500 block mb-1">Jogo Homologado</span>
+          <strong class="text-white text-sm font-medium">Tale of Immortal</strong>
+        </div>
+        <div class="p-5">
+          <span class="text-xs text-zinc-500 block mb-1">Cache Hit Rate</span>
+          <strong class="text-emerald-400 text-sm font-mono">94.2% (12ms)</strong>
+        </div>
+        <div class="p-5">
+          <span class="text-xs text-zinc-500 block mb-1">Linhas na Sessão</span>
+          <strong class="text-white text-sm font-mono">4.812</strong>
+        </div>
+        <div class="p-5">
+          <span class="text-xs text-zinc-500 block mb-1">Perfil de Glossário</span>
+          <strong class="text-zinc-200 text-sm font-medium">Híbrido PT-BR / EN</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+

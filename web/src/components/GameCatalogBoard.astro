@@ -1,0 +1,90 @@
+---
+import SectionHeader from './SectionHeader.astro';
+import { CATALOG_GAMES } from '../data/glossaryData';
+
+const dot = {
+  verified: 'bg-emerald-400',
+  testing: 'bg-amber-400',
+  voting: 'bg-zinc-600'
+};
+---
+
+<section id="catalogo" class="py-24 lg:py-32 border-t border-white/[0.06]">
+  <div class="max-w-6xl mx-auto px-6 lg:px-8">
+    <SectionHeader
+      eyebrow="Jogos"
+      title="Catálogo curado, homologado jogo a jogo"
+      description="Cada título recebe pacote de fonte próprio e glossário revisado antes de ser liberado. Vote nos próximos da fila ou sugira um novo."
+    />
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {CATALOG_GAMES.map((g) => (
+        g.id === 'suggest' ? (
+          <a
+            href="#waitlist"
+            class="group rounded-2xl border border-dashed border-white/[0.12] p-6 flex flex-col justify-between min-h-[176px] hover:border-white/[0.24] hover:bg-zinc-900/40 transition-colors"
+          >
+            <div>
+              <p class="text-xs font-mono text-zinc-500 mb-3">{g.genre}</p>
+              <h3 class="text-lg font-medium text-white">{g.title}</h3>
+            </div>
+            <span class="text-sm text-zinc-400 group-hover:text-white transition-colors">Indicar na lista de espera →</span>
+          </a>
+        ) : (
+          <div class="rounded-2xl border border-white/[0.08] bg-zinc-900/30 p-6 flex flex-col justify-between min-h-[176px]">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-xs font-mono text-zinc-500">{g.genre}</span>
+                <span class="inline-flex items-center gap-1.5 text-xs text-zinc-400">
+                  <span class={`w-1.5 h-1.5 rounded-full ${dot[g.status]}`}></span>
+                  {g.statusLabel}
+                </span>
+              </div>
+              <h3 class="text-lg font-medium text-white">{g.title}</h3>
+              <p class="text-sm text-zinc-500 mt-0.5">{g.zhTitle} · {g.engine}</p>
+            </div>
+
+            <div class="flex items-center justify-between pt-6">
+              <span class="text-xs text-zinc-500">
+                <span class="font-mono text-zinc-300" data-vote-count={g.id}>{g.initialVotes}</span> interessados
+              </span>
+              <button
+                type="button"
+                data-vote-game={g.id}
+                data-initial-votes={g.initialVotes}
+                class="px-3 py-1.5 rounded-lg border border-white/[0.08] text-xs font-medium text-zinc-300 hover:bg-zinc-800 hover:text-white transition-colors"
+              >
+                Quero jogar
+              </button>
+            </div>
+          </div>
+        )
+      ))}
+    </div>
+  </div>
+
+  <script is:inline>
+    (function () {
+      const voted = JSON.parse(localStorage.getItem('daotranslate_votes') || '{}');
+      document.querySelectorAll('[data-vote-game]').forEach((btn) => {
+        const id = btn.dataset.voteGame;
+        const base = parseInt(btn.dataset.initialVotes || '0', 10);
+        const count = document.querySelector(`[data-vote-count="${id}"]`);
+        const mark = () => {
+          count.textContent = String(base + 1);
+          btn.textContent = 'Votado';
+          btn.classList.add('bg-zinc-800', 'text-white');
+        };
+        if (voted[id]) mark();
+        btn.addEventListener('click', () => {
+          if (voted[id]) return;
+          voted[id] = true;
+          localStorage.setItem('daotranslate_votes', JSON.stringify(voted));
+          mark();
+          const sel = document.getElementById('waitlist-game');
+          if (sel) sel.value = id;
+        });
+      });
+    })();
+  </script>
+</section>

@@ -1,0 +1,140 @@
+---
+import SectionHeader from './SectionHeader.astro';
+import { COMPARISON_SCENES } from '../data/glossaryData';
+
+const first = COMPARISON_SCENES[0];
+const scenesJson = JSON.stringify(COMPARISON_SCENES);
+
+const TAB_ON = 'shrink-0 px-3.5 py-2 rounded-lg text-sm font-medium transition-colors bg-zinc-800 text-white';
+const TAB_OFF = 'shrink-0 px-3.5 py-2 rounded-lg text-sm font-medium transition-colors text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/50';
+const MODE_ON = 'px-3.5 py-1.5 rounded-md text-sm font-medium transition-colors bg-zinc-100 text-zinc-950';
+const MODE_OFF = 'px-3.5 py-1.5 rounded-md text-sm font-medium transition-colors text-zinc-400 hover:text-zinc-200';
+---
+
+<section id="comparativo" class="py-24 lg:py-32 border-t border-white/[0.06]">
+  <div class="max-w-6xl mx-auto px-6 lg:px-8">
+    <SectionHeader
+      eyebrow="Comparativo"
+      title="O mesmo diálogo, três resultados diferentes"
+      description="Escolha um jogo e alterne entre o original em chinês, a tradução literal de ferramentas genéricas e a tradução contextual com glossário do DaoTranslate."
+    />
+
+    <div class="rounded-2xl border border-white/[0.08] bg-zinc-900/40 overflow-hidden">
+      <!-- Toolbar -->
+      <div class="px-4 sm:px-6 py-4 border-b border-white/[0.06] bg-zinc-900/60 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+        <div class="flex gap-1 overflow-x-auto -mx-1 px-1" role="tablist" aria-label="Jogos">
+          {COMPARISON_SCENES.map((s, i) => (
+            <button type="button" data-scene-btn={i} class={i === 0 ? TAB_ON : TAB_OFF}>
+              {s.game}
+            </button>
+          ))}
+        </div>
+
+        <div class="inline-flex p-1 rounded-lg bg-zinc-950 border border-white/[0.06] self-start lg:self-auto shrink-0">
+          <button type="button" data-mode-btn="zh" class={MODE_OFF}>Original</button>
+          <button type="button" data-mode-btn="literal" class={MODE_OFF}>Tradutor comum</button>
+          <button type="button" data-mode-btn="ai" class={MODE_ON}>DaoTranslate</button>
+        </div>
+      </div>
+
+      <!-- Dialogue -->
+      <div class="px-6 sm:px-10 lg:px-14 py-10 lg:py-14">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-8 text-xs font-mono">
+          <span class="text-zinc-500">
+            <span id="comp-genre" class="text-zinc-300">{first.genre}</span>
+            <span class="mx-2 text-zinc-700">/</span>
+            <span id="comp-context">{first.context}</span>
+          </span>
+          <span id="comp-status" class="text-emerald-400">
+            Glossário aplicado · cache {first.latencyMs}ms · {first.hashPreview}
+          </span>
+        </div>
+
+        <div class="min-h-[8rem] sm:min-h-[7rem]">
+          <blockquote
+            id="comp-dialogue"
+            class="max-w-4xl text-xl sm:text-2xl lg:text-[1.75rem] leading-[1.6] text-zinc-300 font-normal"
+            set:html={first.curatedHtml}
+          />
+        </div>
+      </div>
+
+      <!-- Glossary diff -->
+      <div
+        id="comp-breakdown"
+        class="border-t border-white/[0.06] bg-zinc-950/50 grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/[0.06]"
+      >
+        {first.highlights.map((h) => (
+          <div class="px-6 py-5 space-y-1.5">
+            <div class="flex items-center justify-between gap-3 text-xs font-mono text-zinc-500">
+              <span>{h.zh} · {h.pinyin}</span>
+              <span class="line-through text-zinc-600 truncate">{h.literalWrong}</span>
+            </div>
+            <div class="text-sm font-medium text-zinc-100">{h.canonical}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <script is:inline define:vars={{ scenesJson, TAB_ON, TAB_OFF, MODE_ON, MODE_OFF }}>
+    (function () {
+      const scenes = JSON.parse(scenesJson);
+      let idx = 0;
+      let mode = 'ai';
+
+      const sceneBtns = document.querySelectorAll('[data-scene-btn]');
+      const modeBtns = document.querySelectorAll('[data-mode-btn]');
+      const $genre = document.getElementById('comp-genre');
+      const $context = document.getElementById('comp-context');
+      const $status = document.getElementById('comp-status');
+      const $dialogue = document.getElementById('comp-dialogue');
+      const $breakdown = document.getElementById('comp-breakdown');
+
+      const cell = (inner) => `<div class="px-6 py-5 space-y-1.5">${inner}</div>`;
+
+      function render() {
+        const s = scenes[idx];
+        $genre.textContent = s.genre;
+        $context.textContent = s.context;
+
+        sceneBtns.forEach((b, i) => (b.className = i === idx ? TAB_ON : TAB_OFF));
+        modeBtns.forEach((b) => (b.className = b.dataset.modeBtn === mode ? MODE_ON : MODE_OFF));
+
+        if (mode === 'zh') {
+          $status.textContent = 'Texto original · zh-CN';
+          $status.className = 'text-zinc-500';
+          $dialogue.innerHTML = `“${s.zhOriginal}”`;
+          $dialogue.style.fontFamily = "'Noto Sans SC', sans-serif";
+          $breakdown.innerHTML = `<div class="md:col-span-3 px-6 py-5 text-sm text-zinc-500">${s.game} (${s.zhTitle}) — diálogo original em chinês simplificado.</div>`;
+        } else if (mode === 'literal') {
+          $status.textContent = 'Tradução literal · termos quebrados e glifos ausentes';
+          $status.className = 'text-rose-400';
+          $dialogue.innerHTML = s.literalHtml;
+          $dialogue.style.fontFamily = '';
+          $breakdown.innerHTML = s.errors
+            .map((e) => cell(`<div class="flex items-start gap-2.5 text-sm text-zinc-400"><span class="font-mono text-rose-400">×</span><span>${e}</span></div>`))
+            .join('');
+        } else {
+          $status.textContent = `Glossário aplicado · cache ${s.latencyMs}ms · ${s.hashPreview}`;
+          $status.className = 'text-emerald-400';
+          $dialogue.innerHTML = s.curatedHtml;
+          $dialogue.style.fontFamily = '';
+          $breakdown.innerHTML = s.highlights
+            .map((h) =>
+              cell(`
+                <div class="flex items-center justify-between gap-3 text-xs font-mono text-zinc-500">
+                  <span>${h.zh} · ${h.pinyin}</span>
+                  <span class="line-through text-zinc-600 truncate">${h.literalWrong}</span>
+                </div>
+                <div class="text-sm font-medium text-zinc-100">${h.canonical}</div>`)
+            )
+            .join('');
+        }
+      }
+
+      sceneBtns.forEach((b, i) => b.addEventListener('click', () => { idx = i; render(); }));
+      modeBtns.forEach((b) => b.addEventListener('click', () => { mode = b.dataset.modeBtn; render(); }));
+    })();
+  </script>
+</section>

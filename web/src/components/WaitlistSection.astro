@@ -1,0 +1,110 @@
+---
+import { CATALOG_GAMES } from '../data/glossaryData';
+const games = CATALOG_GAMES.filter((g) => g.id !== 'suggest');
+
+const input =
+  'w-full px-4 py-3 rounded-lg bg-zinc-950 border border-white/[0.08] text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-zinc-500 transition-colors';
+const label = 'block text-sm font-medium text-zinc-300 mb-2';
+const radio =
+  'flex items-center gap-3 px-4 py-3 rounded-lg border border-white/[0.08] bg-zinc-950/60 cursor-pointer hover:border-zinc-600 transition-colors has-[:checked]:border-zinc-300 has-[:checked]:bg-zinc-900';
+---
+
+<section id="waitlist" class="py-24 lg:py-32 border-t border-white/[0.06]">
+  <div class="max-w-6xl mx-auto px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16">
+    <!-- Left copy -->
+    <div class="lg:col-span-2">
+      <p class="text-xs font-mono uppercase tracking-[0.18em] text-zinc-500 mb-4">Acesso antecipado</p>
+      <h2 class="text-3xl sm:text-4xl font-semibold tracking-tight text-white leading-tight">
+        Entre na lista de espera
+      </h2>
+      <p class="mt-4 text-base sm:text-lg text-zinc-400 leading-relaxed">
+        O beta abre por lotes, começando pelos jogos mais votados. Diga qual você quer jogar e como prefere ler os termos de cultivo.
+      </p>
+
+      <ul class="mt-10 space-y-4 text-sm text-zinc-400">
+        <li class="flex gap-3"><span class="text-zinc-600 font-mono">01</span>Convite por e-mail quando seu jogo entrar no beta</li>
+        <li class="flex gap-3"><span class="text-zinc-600 font-mono">02</span>Seu voto define a ordem de homologação</li>
+        <li class="flex gap-3"><span class="text-zinc-600 font-mono">03</span>Sem spam. Seus dados não serão vendidos</li>
+      </ul>
+    </div>
+
+    <!-- Form -->
+    <div class="lg:col-span-3 rounded-2xl border border-white/[0.08] bg-zinc-900/40 p-6 sm:p-10">
+      <form id="waitlist-form" class="space-y-7">
+        <div>
+          <label for="waitlist-email" class={label}>E-mail</label>
+          <input type="email" id="waitlist-email" name="email" required placeholder="voce@exemplo.com" class={input} />
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div>
+            <label for="waitlist-game" class={label}>Jogo de interesse</label>
+            <select id="waitlist-game" name="primary_game" class={input}>
+              {games.map((g) => <option value={g.id}>{g.title}</option>)}
+              <option value="other">Outro jogo</option>
+            </select>
+          </div>
+          <div>
+            <label for="waitlist-style" class={label}>Termos de cultivo</label>
+            <select id="waitlist-style" name="glossary_style" class={input}>
+              <option value="hybrid">Híbrido · Alma Nascente (Nascent Soul)</option>
+              <option value="pt_only">100% português · Alma Nascente</option>
+              <option value="en_terms">Inglês · Nascent Soul</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="other-game-wrap" class="hidden">
+          <label for="waitlist-other" class={label}>Qual jogo?</label>
+          <input type="text" id="waitlist-other" name="other_game" placeholder="Nome do jogo na Steam" class={input} />
+        </div>
+
+        <fieldset>
+          <legend class={label}>Se custasse entre R$ 19 e R$ 29 por mês, você pagaria?</legend>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-sm">
+            <label class={radio}><input type="radio" name="willingness_to_pay" value="sim_com_certeza" required class="accent-white" /><span class="text-zinc-200">Sim, com certeza</span></label>
+            <label class={radio}><input type="radio" name="willingness_to_pay" value="talvez_qualidade" class="accent-white" /><span class="text-zinc-300">Talvez, depende da qualidade</span></label>
+            <label class={radio}><input type="radio" name="willingness_to_pay" value="so_mais_barato" class="accent-white" /><span class="text-zinc-400">Só se fosse mais barato</span></label>
+            <label class={radio}><input type="radio" name="willingness_to_pay" value="nao_pagaria" class="accent-white" /><span class="text-zinc-500">Não pagaria</span></label>
+          </div>
+        </fieldset>
+
+        <button type="submit" class="w-full py-3.5 rounded-lg bg-white hover:bg-zinc-200 text-zinc-950 font-medium text-sm transition-colors">
+          Entrar na lista de espera
+        </button>
+
+        <p id="waitlist-success" class="hidden text-center text-sm text-emerald-400">
+          Cadastro recebido. Avisaremos por e-mail quando seu jogo entrar no beta.
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <script is:inline>
+    (function () {
+      const form = document.getElementById('waitlist-form');
+      const sel = document.getElementById('waitlist-game');
+      const otherWrap = document.getElementById('other-game-wrap');
+      const ok = document.getElementById('waitlist-success');
+
+      sel.addEventListener('change', () => otherWrap.classList.toggle('hidden', sel.value !== 'other'));
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const data = Object.fromEntries(new FormData(form).entries());
+        const entry = {
+          ...data,
+          utm: JSON.parse(localStorage.getItem('daotranslate_utm') || '{}'),
+          submitted_at: new Date().toISOString()
+        };
+        // TODO: enviar para Tally / Supabase / Formspree
+        const leads = JSON.parse(localStorage.getItem('daotranslate_leads') || '[]');
+        leads.push(entry);
+        localStorage.setItem('daotranslate_leads', JSON.stringify(leads));
+        ok.classList.remove('hidden');
+        form.reset();
+        otherWrap.classList.add('hidden');
+      });
+    })();
+  </script>
+</section>

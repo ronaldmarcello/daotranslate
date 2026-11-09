@@ -1,0 +1,181 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import InteractiveComparator from '../components/InteractiveComparator.astro';
+import GameCatalogBoard from '../components/GameCatalogBoard.astro';
+import WaitlistSection from '../components/WaitlistSection.astro';
+import { GENRES } from '../data/glossaryData';
+
+const steps = [
+  {
+    n: '01',
+    title: 'Escolha o jogo',
+    body: 'O launcher encontra a instalação na Steam e aplica o pacote homologado daquele título, incluindo a fonte com suporte completo a acentos.'
+  },
+  {
+    n: '02',
+    title: 'Ative a tradução',
+    body: 'Os textos do jogo passam pelo nosso cache em nuvem. Frases já traduzidas voltam em milissegundos; as novas são traduzidas com o glossário do jogo.'
+  },
+  {
+    n: '03',
+    title: 'Jogue com consistência',
+    body: 'Reinos, técnicas, seitas e itens mantêm o mesmo nome do início ao fim, seja Xianxia, Wuxia ou simulador de cultivo.'
+  }
+];
+
+const pillars = [
+  { k: 'Glossário por jogo', v: 'Cada título tem seu dicionário canônico revisado, com termos de cultivo e artes marciais.' },
+  { k: 'Fonte corrigida', v: 'Pacote de fonte por engine para acabar com os quadradinhos [] no português.' },
+  { k: '1 clique', v: 'Sem editar arquivos de configuração, sem plugins soltos, sem criar chave de API.' },
+  { k: 'Cache em nuvem', v: 'Traduções compartilhadas e revisadas retornam instantaneamente durante o jogo.' }
+];
+
+const faq = [
+  {
+    q: 'Funciona com qualquer jogo?',
+    a: 'Não, e isso é intencional. Trabalhamos com um catálogo curado de RPGs asiáticos densos em texto. Cada jogo é testado antes de ser liberado, o que evita quebras e traduções inconsistentes.'
+  },
+  {
+    q: 'Quais gêneros são suportados?',
+    a: 'O foco inicial é Xianxia, Wuxia, simuladores de cultivo e RPGs de mundo aberto chineses. Outros gêneros e idiomas de origem entram conforme a demanda da lista de espera.'
+  },
+  {
+    q: 'Preciso configurar alguma coisa?',
+    a: 'Não. O launcher cuida da instalação, da fonte e da conexão com o serviço. Você não precisa de conta ou chave em nenhum provedor de IA.'
+  },
+  {
+    q: 'Quais idiomas de destino?',
+    a: 'Português do Brasil e inglês. Você escolhe se prefere os termos clássicos em inglês entre parênteses, só em português ou só em inglês.'
+  }
+];
+---
+
+<Layout>
+  <!-- Hero -->
+  <section class="pt-24 pb-24 sm:pt-32 lg:pt-40 lg:pb-32">
+    <div class="max-w-6xl mx-auto px-6 lg:px-8">
+      <div class="max-w-4xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/[0.08] bg-zinc-900/70 text-zinc-400 text-xs mb-10">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+          Beta fechado em breve · vote no primeiro jogo
+        </div>
+
+        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-semibold tracking-tight text-white leading-[1.05]">
+          RPGs asiáticos,<br class="hidden sm:block" />
+          <span class="text-zinc-500">traduzidos de verdade.</span>
+        </h1>
+
+        <p class="mt-8 text-lg sm:text-xl text-zinc-400 leading-relaxed max-w-2xl">
+          Tradução contextual por IA com glossário canônico por jogo, fonte corrigida e instalação em 1 clique.
+        </p>
+
+        <div class="mt-10 flex flex-col sm:flex-row gap-3">
+          <a href="#waitlist" class="px-6 py-3.5 rounded-lg bg-white hover:bg-zinc-200 text-zinc-950 font-medium text-sm text-center transition-colors">
+            Entrar na lista de espera
+          </a>
+          <a href="#comparativo" class="px-6 py-3.5 rounded-lg border border-white/[0.1] hover:bg-zinc-900 text-zinc-300 font-medium text-sm text-center transition-colors">
+            Ver comparativo
+          </a>
+        </div>
+      </div>
+
+      <!-- Genre strip -->
+      <div class="mt-20 lg:mt-28 pt-8 border-t border-white/[0.06] flex flex-col md:flex-row md:items-center gap-4 md:gap-8">
+        <span class="text-xs font-mono uppercase tracking-[0.18em] text-zinc-600 shrink-0">Feito para</span>
+        <ul class="flex flex-wrap gap-x-8 gap-y-2 text-sm text-zinc-400">
+          {GENRES.map((g) => <li>{g}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comparator -->
+  <InteractiveComparator />
+
+  <!-- Pillars -->
+  <section class="py-24 lg:py-32 border-t border-white/[0.06]">
+    <div class="max-w-6xl mx-auto px-6 lg:px-8">
+      <SectionHeader
+        eyebrow="Por que não um tradutor genérico"
+        title="Tradução que entende o gênero, não só o idioma"
+        description="Ferramentas automáticas traduzem palavra por palavra. RPGs de cultivo dependem de terminologia consistente ao longo de centenas de horas."
+      />
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-white/[0.06] border border-white/[0.08] rounded-2xl overflow-hidden">
+        {pillars.map((p) => (
+          <div class="p-6 lg:p-8 bg-zinc-950">
+            <h3 class="text-base font-medium text-white mb-2">{p.k}</h3>
+            <p class="text-sm text-zinc-400 leading-relaxed">{p.v}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section id="como-funciona" class="py-24 lg:py-32 border-t border-white/[0.06]">
+    <div class="max-w-6xl mx-auto px-6 lg:px-8">
+      <SectionHeader
+        eyebrow="Como funciona"
+        title="Três passos, nenhum arquivo para editar"
+      />
+
+      <ol class="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-16">
+        {steps.map((s) => (
+          <li class="relative pt-8 border-t border-white/[0.1]">
+            <span class="absolute -top-px left-0 w-10 h-px bg-white"></span>
+            <span class="block text-xs font-mono text-zinc-500 mb-4">{s.n}</span>
+            <h3 class="text-lg font-medium text-white mb-3">{s.title}</h3>
+            <p class="text-sm text-zinc-400 leading-relaxed">{s.body}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Video -->
+  <section id="video" class="py-24 lg:py-32 border-t border-white/[0.06]">
+    <div class="max-w-6xl mx-auto px-6 lg:px-8">
+      <SectionHeader
+        eyebrow="Demonstração"
+        title="Veja rodando dentro do jogo"
+        description="Do texto original ao resultado final em menos de um minuto, com gameplay real."
+      />
+
+      <div class="rounded-2xl border border-white/[0.08] bg-zinc-900/30 aspect-video flex flex-col items-center justify-center text-center p-8">
+        <button type="button" aria-label="Reproduzir" class="w-16 h-16 rounded-full bg-white text-zinc-950 flex items-center justify-center hover:scale-105 transition-transform">
+          <svg class="w-6 h-6 fill-current ml-1" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
+        </button>
+        <p class="mt-6 text-sm text-zinc-400">Vídeo em produção</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Catalog -->
+  <GameCatalogBoard />
+
+  <!-- Waitlist -->
+  <WaitlistSection />
+
+  <!-- FAQ -->
+  <section id="faq" class="py-24 lg:py-32 border-t border-white/[0.06]">
+    <div class="max-w-6xl mx-auto px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16">
+      <div>
+        <p class="text-xs font-mono uppercase tracking-[0.18em] text-zinc-500 mb-4">FAQ</p>
+        <h2 class="text-3xl sm:text-4xl font-semibold tracking-tight text-white leading-tight">Perguntas frequentes</h2>
+      </div>
+      <div class="lg:col-span-2 divide-y divide-white/[0.06] border-y border-white/[0.06]">
+        {faq.map((f) => (
+          <details class="group py-6">
+            <summary class="flex items-center justify-between cursor-pointer list-none text-base font-medium text-white">
+              {f.q}
+              <span class="ml-6 text-zinc-500 transition-transform group-open:rotate-45 text-xl leading-none">+</span>
+            </summary>
+            <p class="mt-4 text-sm text-zinc-400 leading-relaxed pr-10">{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>

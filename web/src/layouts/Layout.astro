@@ -1,0 +1,85 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'DaoTranslate — Tradução contextual por IA para RPGs asiáticos',
+  description = 'Jogue RPGs chineses de Xianxia, Wuxia e cultivo traduzidos com glossário canônico por jogo, fonte corrigida e instalação em 1 clique.'
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="pt-BR" class="scroll-smooth dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#09090b" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-zinc-950 text-zinc-100 antialiased selection:bg-zinc-100 selection:text-zinc-950 min-h-screen flex flex-col">
+    <header class="sticky top-0 z-50 border-b border-white/[0.06] bg-zinc-950/80 backdrop-blur-md">
+      <div class="max-w-6xl mx-auto px-6 lg:px-8 h-16 flex items-center justify-between">
+        <a href="/" class="flex items-center gap-2.5">
+          <span class="w-7 h-7 rounded-md bg-zinc-100 text-zinc-950 font-semibold text-sm flex items-center justify-center">道</span>
+          <span class="font-semibold tracking-tight text-white">DaoTranslate</span>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-8 text-sm text-zinc-400">
+          <a href="/#comparativo" class="hover:text-white transition-colors">Comparativo</a>
+          <a href="/#como-funciona" class="hover:text-white transition-colors">Como funciona</a>
+          <a href="/#catalogo" class="hover:text-white transition-colors">Jogos</a>
+          <a href="/#faq" class="hover:text-white transition-colors">FAQ</a>
+        </nav>
+
+        <a
+          href="/#waitlist"
+          class="px-4 py-2 rounded-lg bg-white hover:bg-zinc-200 text-zinc-950 font-medium text-sm transition-colors"
+        >
+          Acesso antecipado
+        </a>
+      </div>
+    </header>
+
+    <main class="flex-1">
+      <slot />
+    </main>
+
+    <footer class="border-t border-white/[0.06]">
+      <div class="max-w-6xl mx-auto px-6 lg:px-8 py-12 flex flex-col md:flex-row md:items-center justify-between gap-6 text-sm text-zinc-500">
+        <div class="flex items-center gap-2.5">
+          <span class="w-6 h-6 rounded bg-zinc-800 text-zinc-300 text-xs font-medium flex items-center justify-center">道</span>
+          <span class="text-zinc-300 font-medium">DaoTranslate</span>
+          <span class="hidden sm:inline">· Tradução contextual para RPGs asiáticos</span>
+        </div>
+        <p class="text-xs">Projeto em validação. Não afiliado às desenvolvedoras dos jogos citados.</p>
+      </div>
+    </footer>
+
+    <script is:inline>
+      (function captureUtmParams() {
+        try {
+          const params = new URLSearchParams(window.location.search);
+          const keys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'ref'];
+          const stored = {};
+          keys.forEach((k) => {
+            const v = params.get(k);
+            if (v) stored[k] = v;
+          });
+          if (Object.keys(stored).length) localStorage.setItem('daotranslate_utm', JSON.stringify(stored));
+        } catch (e) {}
+      })();
+    </script>
+  </body>
+</html>
